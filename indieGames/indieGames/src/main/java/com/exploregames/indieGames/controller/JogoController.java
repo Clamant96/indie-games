@@ -20,7 +20,7 @@ import com.exploregames.indieGames.repository.JogoRepository;
 
 @RestController
 @RequestMapping("/jogos")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class JogoController {
 	
 	@Autowired

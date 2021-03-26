@@ -31,9 +31,9 @@ public class Desenvolvedora {
 	@Size(max = 1000)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "desenvolvedora", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("desenvolvedora")
-	private List<Jogo> jogo;
+	@OneToMany(mappedBy = "desenvolvedoras", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("desenvolvedoras")
+	private List<Jogo> jogos;
 	
 	public long getId() {
 		return id;
@@ -59,12 +59,12 @@ public class Desenvolvedora {
 		this.descricao = descricao;
 	}
 
-	public List<Jogo> getJogo() {
-		return jogo;
+	public List<Jogo> getJogos() {
+		return jogos;
 	}
 
-	public void setJogo(List<Jogo> jogo) {
-		this.jogo = jogo;
+	public void setJogos(List<Jogo> jogos) {
+		this.jogos = jogos;
 	}
 	
 }

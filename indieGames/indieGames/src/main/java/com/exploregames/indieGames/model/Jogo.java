@@ -1,12 +1,16 @@
 package com.exploregames.indieGames.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,25 +38,13 @@ public class Jogo {
 	@NotNull
 	private double preco;
 	
-	/* criar a desenvolvedora
-	 * criar a plataforma
-	 */
-	
-	/*@ManyToOne
-	@JsonIgnoreProperties("jogo")
-	public Categoria categoria;*/
-	
 	@ManyToOne
-	@JsonIgnoreProperties("jogo")
-	private Desenvolvedora desenvolvedora;
+	@JsonIgnoreProperties("jogos")
+	private Desenvolvedora desenvolvedoras;
 	
-	/*@OneToMany(mappedBy = "jogo", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("jogo")
-	private List<Plataforma> plataforma;*/
-	
-	@ManyToOne
-	@JsonIgnoreProperties("jogo")
-	private Plataforma plataforma;
+	@ManyToMany(mappedBy = "jogos", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"nome", "descricao", "categorias", "jogos"})
+	private List<Plataforma> plataformas = new ArrayList<>();
 	
 	public long getId() {
 		return id;
@@ -86,38 +78,20 @@ public class Jogo {
 		this.preco = preco;
 	}
 
-	/*public Categoria getCategoria() {
-		return categoria;
+	public Desenvolvedora getDesenvolvedoras() {
+		return desenvolvedoras;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}*/
-
-	public Desenvolvedora getDesenvolvedora() {
-		return desenvolvedora;
+	public void setDesenvolvedoras(Desenvolvedora desenvolvedoras) {
+		this.desenvolvedoras = desenvolvedoras;
 	}
 
-	public void setDesenvolvedora(Desenvolvedora desenvolvedora) {
-		this.desenvolvedora = desenvolvedora;
+	public List<Plataforma> getPlataformas() {
+		return plataformas;
 	}
 
-	public Plataforma getPlataforma() {
-		return plataforma;
+	public void setPlataformas(List<Plataforma> plataformas) {
+		this.plataformas = plataformas;
 	}
-
-	public void setPlataforma(Plataforma plataforma) {
-		this.plataforma = plataforma;
-	}
-
-	/*public List<Plataforma> getPlataforma() {
-		return plataforma;
-	}
-
-	public void setPlataforma(List<Plataforma> plataforma) {
-		this.plataforma = plataforma;
-	}*/
-	
-	
 
 }

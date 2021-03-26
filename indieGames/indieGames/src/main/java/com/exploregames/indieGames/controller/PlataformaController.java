@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exploregames.indieGames.model.Plataforma;
 import com.exploregames.indieGames.repository.PlataformaRepository;
+import com.exploregames.indieGames.service.PlataformaService;
 
 @RestController
 @RequestMapping("/plataformas")
@@ -25,6 +26,9 @@ public class PlataformaController {
 	
 	@Autowired
 	private PlataformaRepository repository;
+	
+	@Autowired
+	private PlataformaService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Plataforma>> findAllPlataforma(){
@@ -50,6 +54,20 @@ public class PlataformaController {
 	public ResponseEntity<Plataforma> postPlataforma(@RequestBody Plataforma plataforma){
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(plataforma));
+	}
+	
+	/*
+	 * EXPLICACAO URI:
+	 * 
+	 * 	/plataformaJogo -> nome da tabela associativa
+	 * 	/jogos -> nome da lista de jogos dentro da classe Plataforma
+	 * 	/plataformas -> nome da lista de plataformas dentro da classe Jogo
+	 * 
+	 * */
+	@PutMapping("/plataformaJogo/jogos/{idPlataforma}/plataformas/{idJogo}")
+	public ResponseEntity<Plataforma> postPlataformaJogo(@PathVariable long idPlataforma, @PathVariable long idJogo){
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastroJogoPlataforma(idPlataforma, idJogo));
 	}
 	
 	@PutMapping

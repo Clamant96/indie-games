@@ -30,13 +30,9 @@ public class Categoria {
 	@Size(max = 1000)
 	private String descricao;
 	
-	/*@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("categoria")
-	private List<Jogo> jogo;*/
-	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("categoria")
-	private List<Plataforma> plataforma;
+	@OneToMany(mappedBy = "categorias", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("categorias")
+	private List<Plataforma> plataformas;
 	
 	public long getId() {
 		return id;
@@ -62,20 +58,12 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-	/*public List<Jogo> getJogo() {
-		return jogo;
+	public List<Plataforma> getPlataformas() {
+		return plataformas;
 	}
 
-	public void setJogo(List<Jogo> jogo) {
-		this.jogo = jogo;
-	}*/
-
-	public List<Plataforma> getPlataforma() {
-		return plataforma;
-	}
-
-	public void setPlataforma(List<Plataforma> plataforma) {
-		this.plataforma = plataforma;
+	public void setPlataformas(List<Plataforma> plataformas) {
+		this.plataformas = plataformas;
 	}
 	
 }

@@ -1,12 +1,18 @@
 package com.exploregames.indieGames.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,16 +38,21 @@ public class Plataforma {
 	private String descricao;
 	
 	@ManyToOne
-	@JsonIgnoreProperties("plataforma")
-	private Categoria categoria;
+	@JsonIgnoreProperties("plataformas")
+	private Categoria categorias;
 	
-	/*@ManyToOne
-	@JsonIgnoreProperties("plataforma")
-	private Jogo jogo;*/
-	
-	@OneToMany(mappedBy = "plataforma", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("plataforma")
-	private List<Jogo> jogo;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "plataformaJogo", 
+		joinColumns = {
+			@JoinColumn(name = "plataforma_id")
+		}, 
+		inverseJoinColumns = {
+			@JoinColumn(name = "jogo_id")
+		}
+	)
+	@JsonIgnoreProperties({"nome", "descricao", "preco", "desenvolvedoras", "plataformas"})
+    private List<Jogo> jogos = new ArrayList<>();
 	
 	public long getId() {
 		return id;
@@ -67,30 +78,20 @@ public class Plataforma {
 		this.descricao = descricao;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
+	public Categoria getCategorias() {
+		return categorias;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategorias(Categoria categorias) {
+		this.categorias = categorias;
 	}
 
-	public List<Jogo> getJogo() {
-		return jogo;
+	public List<Jogo> getJogos() {
+		return jogos;
 	}
 
-	public void setJogo(List<Jogo> jogo) {
-		this.jogo = jogo;
+	public void setJogos(List<Jogo> jogos) {
+		this.jogos = jogos;
 	}
-
-	/*public Jogo getJogo() {
-		return jogo;
-	}
-
-	public void setJogo(Jogo jogo) {
-		this.jogo = jogo;
-	}*/
-	
-	
 	
 }
